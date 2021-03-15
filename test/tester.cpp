@@ -67,17 +67,21 @@ std::string generate_random_string(const size_t length) {
 }
 
 bool run_test(std::ostream& out, const std::string& text) {
-  out << "Testing encoding and decoding of text:\n" << text << '\n';
+  out << "Testing encoding and decoding of text: " << text << '\n';
   auto decode_result = huffman::decode(huffman::encode(text));
   if (!decode_result.ok) {
     out << "Cannot decode encoded string\n";
     return false;
   }
-  return assert_equal(
+  if(assert_equal(
     out,
     decode_result.decoded,
     text,
-    "Text after encoding and decoding back differs from the original\n");
+    "Text after encoding and decoding back differs from the original\n")) {
+    out << "Test passed!\n";
+    return true;
+  }
+  return false;
 }
 
 } // namespace testing

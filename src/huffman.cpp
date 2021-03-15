@@ -8,7 +8,7 @@
 
 namespace {
 
-class symbol_stats : public std::map<char, std::size_t> {};
+using symbol_stats = std::map<char, std::size_t>;
 
 using huffman_table = std::unordered_map<char, std::string>;
 
@@ -196,14 +196,9 @@ void build_table_from_node(
 }
 
 huffman_table build_table(const huffman_encode_tree& tree) {
-  // const auto* root = tree.get_root();
   auto table = huffman_table{};
-  // if (root->get_left() == nullptr && root->get_right() == nullptr) {
-  //   table[root->get_symbol()] = std::string{"1"};
-  // } else {
-    auto path_code = std::string{};
-    build_table_from_node(&table, tree.get_root(), &path_code);
-  // }
+  auto path_code = std::string{};
+  build_table_from_node(&table, tree.get_root(), &path_code);
   return table;
 }
 
